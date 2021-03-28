@@ -127,6 +127,46 @@ CLion_HW_24_5\fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\CLion_HW_24_5.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\CLion_HW_24_5.dir\build
 .PHONY : CLion_HW_24_5\fast
 
+#=============================================================================
+# Target rules for targets named task_1
+
+# Build rule for target.
+task_1: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 /nologo -$(MAKEFLAGS) task_1
+.PHONY : task_1
+
+# fast build rule for target.
+task_1\fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\task_1.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\task_1.dir\build
+.PHONY : task_1\fast
+
+HW_24_5_task_1.obj: HW_24_5_task_1.cpp.obj
+
+.PHONY : HW_24_5_task_1.obj
+
+# target to build an object file
+HW_24_5_task_1.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\task_1.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\task_1.dir\HW_24_5_task_1.cpp.obj
+.PHONY : HW_24_5_task_1.cpp.obj
+
+HW_24_5_task_1.i: HW_24_5_task_1.cpp.i
+
+.PHONY : HW_24_5_task_1.i
+
+# target to preprocess a source file
+HW_24_5_task_1.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\task_1.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\task_1.dir\HW_24_5_task_1.cpp.i
+.PHONY : HW_24_5_task_1.cpp.i
+
+HW_24_5_task_1.s: HW_24_5_task_1.cpp.s
+
+.PHONY : HW_24_5_task_1.s
+
+# target to generate assembly for a file
+HW_24_5_task_1.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\task_1.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\task_1.dir\HW_24_5_task_1.cpp.s
+.PHONY : HW_24_5_task_1.cpp.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -163,6 +203,10 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... CLion_HW_24_5
+	@echo ... task_1
+	@echo ... HW_24_5_task_1.obj
+	@echo ... HW_24_5_task_1.i
+	@echo ... HW_24_5_task_1.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

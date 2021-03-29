@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <math.h>
 
 struct x_coordinates
 {
@@ -17,13 +16,14 @@ struct vec
     x_coordinates x = {};
     y_coordinates y = {};
     int scale = 0;
+    double length = 0;
 };
 
 
 int main()
 {
 
-    vec a{};
+    vec a = { {{}}, {{}}, 0, 0 };
     double tmp;
     int tmp_scale;
 
@@ -91,7 +91,23 @@ int main()
         std::cin >> tmp;
         a.y.y.push_back(tmp);
 
-        std::cout << "result of 'length' = " << sqrt( (a.x.x[0] * a.x.x[0]) + (a.y.y[0] * a.y.y[0]) );
+        a.length = sqrt( (a.x.x[0] * a.x.x[0]) + (a.y.y[0] * a.y.y[0]) );
+
+        std::cout << "result of 'length' = " << a.length;
+    }
+
+    if(user_input == "normalize")
+    {
+        std::cout << "input first vector coordinate X: ";
+        std::cin >> tmp;
+        a.x.x.push_back(tmp);
+        std::cout << "input first vector coordinate Y: ";
+        std::cin >> tmp;
+        a.y.y.push_back(tmp);
+
+        a.length = sqrt( (a.x.x[0] * a.x.x[0]) + (a.y.y[0] * a.y.y[0]) );
+
+        std::cout << "result of 'normalize' = " << a.x.x[0] / a.length << " , " << a.y.y[0] / a.length;
     }
 
     return 0;

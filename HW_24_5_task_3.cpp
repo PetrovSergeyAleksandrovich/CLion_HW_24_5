@@ -25,7 +25,6 @@ int main()
 
     vec a = { {{}}, {{}}, 0, 0 };
     double tmp;
-    int tmp_scale;
 
     std::string user_input;
     std::cout << "your command\nadd/subtract/scale/length/normalize\n: ";
@@ -76,8 +75,7 @@ int main()
         std::cin >> tmp;
         a.y.y.push_back(tmp);
         std::cout << "input scale value: ";
-        std::cin >> tmp_scale;
-        a.scale = tmp_scale;
+        std::cin >> a.scale;
 
         std::cout << "result of 'scale' = ( " << a.x.x[0] * a.scale << " , " << a.y.y[0] * a.scale << " ) ";
     }

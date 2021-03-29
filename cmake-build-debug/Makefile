@@ -115,6 +115,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named task_4
+
+# Build rule for target.
+task_4: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 /nologo -$(MAKEFLAGS) task_4
+.PHONY : task_4
+
+# fast build rule for target.
+task_4\fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\task_4.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\task_4.dir\build
+.PHONY : task_4\fast
+
+#=============================================================================
 # Target rules for targets named CLion_HW_24_5
 
 # Build rule for target.
@@ -247,6 +260,33 @@ HW_24_5_task_3.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\task_3.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\task_3.dir\HW_24_5_task_3.cpp.s
 .PHONY : HW_24_5_task_3.cpp.s
 
+HW_24_5_task_4.obj: HW_24_5_task_4.cpp.obj
+
+.PHONY : HW_24_5_task_4.obj
+
+# target to build an object file
+HW_24_5_task_4.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\task_4.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\task_4.dir\HW_24_5_task_4.cpp.obj
+.PHONY : HW_24_5_task_4.cpp.obj
+
+HW_24_5_task_4.i: HW_24_5_task_4.cpp.i
+
+.PHONY : HW_24_5_task_4.i
+
+# target to preprocess a source file
+HW_24_5_task_4.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\task_4.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\task_4.dir\HW_24_5_task_4.cpp.i
+.PHONY : HW_24_5_task_4.cpp.i
+
+HW_24_5_task_4.s: HW_24_5_task_4.cpp.s
+
+.PHONY : HW_24_5_task_4.s
+
+# target to generate assembly for a file
+HW_24_5_task_4.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\task_4.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\task_4.dir\HW_24_5_task_4.cpp.s
+.PHONY : HW_24_5_task_4.cpp.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -286,6 +326,7 @@ help:
 	@echo ... task_1
 	@echo ... task_2
 	@echo ... task_3
+	@echo ... task_4
 	@echo ... HW_24_5_task_1.obj
 	@echo ... HW_24_5_task_1.i
 	@echo ... HW_24_5_task_1.s
@@ -295,6 +336,9 @@ help:
 	@echo ... HW_24_5_task_3.obj
 	@echo ... HW_24_5_task_3.i
 	@echo ... HW_24_5_task_3.s
+	@echo ... HW_24_5_task_4.obj
+	@echo ... HW_24_5_task_4.i
+	@echo ... HW_24_5_task_4.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

@@ -45,7 +45,8 @@ int main() {
             std::cout << "\nType name of number " << current_building+1 << " building \n(home, garage, barn, sauna):";
             std::cin >> tmp_str_building_name;
             area[current_area].name.push_back(tmp_str_building_name);
-
+            
+            //check fireplace
             if(tmp_str_building_name == "home" || tmp_str_building_name == "sauna")
             {
                 std::cout << "Is there a fireplace at " << tmp_str_building_name << " (yes / no) ? : ";
@@ -56,7 +57,7 @@ int main() {
             else
             {
                 area[current_area].fireplace.push_back("no");
-            }
+            }//end-of-check fireplace
 
             std::cout << "\nType square meteres of " << tmp_str_building_name << " :";
             std::cin >> tmp_int;

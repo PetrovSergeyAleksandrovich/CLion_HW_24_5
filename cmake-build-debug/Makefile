@@ -167,6 +167,19 @@ task_2\fast:
 .PHONY : task_2\fast
 
 #=============================================================================
+# Target rules for targets named task_2_v2
+
+# Build rule for target.
+task_2_v2: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 /nologo -$(MAKEFLAGS) task_2_v2
+.PHONY : task_2_v2
+
+# fast build rule for target.
+task_2_v2\fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\task_2_v2.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\task_2_v2.dir\build
+.PHONY : task_2_v2\fast
+
+#=============================================================================
 # Target rules for targets named task_3
 
 # Build rule for target.
@@ -232,6 +245,33 @@ HW_24_5_task_2.s: HW_24_5_task_2.cpp.s
 HW_24_5_task_2.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\task_2.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\task_2.dir\HW_24_5_task_2.cpp.s
 .PHONY : HW_24_5_task_2.cpp.s
+
+HW_24_5_task_2_v2.obj: HW_24_5_task_2_v2.cpp.obj
+
+.PHONY : HW_24_5_task_2_v2.obj
+
+# target to build an object file
+HW_24_5_task_2_v2.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\task_2_v2.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\task_2_v2.dir\HW_24_5_task_2_v2.cpp.obj
+.PHONY : HW_24_5_task_2_v2.cpp.obj
+
+HW_24_5_task_2_v2.i: HW_24_5_task_2_v2.cpp.i
+
+.PHONY : HW_24_5_task_2_v2.i
+
+# target to preprocess a source file
+HW_24_5_task_2_v2.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\task_2_v2.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\task_2_v2.dir\HW_24_5_task_2_v2.cpp.i
+.PHONY : HW_24_5_task_2_v2.cpp.i
+
+HW_24_5_task_2_v2.s: HW_24_5_task_2_v2.cpp.s
+
+.PHONY : HW_24_5_task_2_v2.s
+
+# target to generate assembly for a file
+HW_24_5_task_2_v2.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\task_2_v2.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\task_2_v2.dir\HW_24_5_task_2_v2.cpp.s
+.PHONY : HW_24_5_task_2_v2.cpp.s
 
 HW_24_5_task_3.obj: HW_24_5_task_3.cpp.obj
 
@@ -325,6 +365,7 @@ help:
 	@echo ... CLion_HW_24_5
 	@echo ... task_1
 	@echo ... task_2
+	@echo ... task_2_v2
 	@echo ... task_3
 	@echo ... task_4
 	@echo ... HW_24_5_task_1.obj
@@ -333,6 +374,9 @@ help:
 	@echo ... HW_24_5_task_2.obj
 	@echo ... HW_24_5_task_2.i
 	@echo ... HW_24_5_task_2.s
+	@echo ... HW_24_5_task_2_v2.obj
+	@echo ... HW_24_5_task_2_v2.i
+	@echo ... HW_24_5_task_2_v2.s
 	@echo ... HW_24_5_task_3.obj
 	@echo ... HW_24_5_task_3.i
 	@echo ... HW_24_5_task_3.s

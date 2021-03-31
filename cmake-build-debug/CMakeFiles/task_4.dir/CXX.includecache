@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/Poizone/CLion_HW_24_5/HW_24_5_task_4.cpp
+iostream
+-
+vector
+-
+fstream
+-
+string
+-
+cstdlib
+-
+ctime
+-
+Windows.h
+-
+

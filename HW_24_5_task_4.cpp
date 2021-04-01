@@ -6,8 +6,9 @@
 #include <ctime>
 #include <Windows.h>
 
-int fieldsize =  rand() % 10 + 10; //set size of battlefield here
-int enemy_quantity = rand() % 9 + 1; // set enemies on the field here
+
+int fieldsize =  10; //set size of battlefield here
+int enemy_quantity = 5; // set enemies on the field here
 
 struct vec_2d
 {
@@ -255,6 +256,14 @@ int main()
         {
             move_player(gamer, user_input);
             if(gamer.AP <= 0) gamer.HP += rand() % 2; // healing 1HP, but not with every movement
+        }
+        else if(user_input == "save")
+        {
+            ;
+        }
+        else if(user_input == "load")
+        {
+            ;
         }
         move_enemy(enemies);
         take_damage(gamer, enemies);

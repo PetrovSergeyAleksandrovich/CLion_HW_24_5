@@ -118,6 +118,33 @@ void move_enemy(enemies_list& enemies_list_)
     return;
 }
 
+void take_damage(player& gamer, enemies_list& enemies_list_)
+{
+    for(int i = 0; i < enemies_list_.list.size(); i++)
+    {
+        if(gamer.coordinates.x == enemies_list_.list[i].coordinates.x && gamer.coordinates.y == enemies_list_.list[i].coordinates.y)
+        {
+            std::cout << "\n~HIT~";
+            gamer.AP -= enemies_list_.list[i].damage;
+            if(gamer.AP <= 0)
+            {
+                gamer.HP += gamer.AP;
+                gamer.AP = 0;
+            }
+            std::cout << std::endl << "HP: " << gamer.HP << " AP: " << gamer.AP;
+
+            enemies_list_.list[i].AP -= gamer.damage;
+            if(enemies_list_.list[i].AP <= 0)
+            {
+                enemies_list_.list[i].HP += enemies_list_.list[i].AP;
+                enemies_list_.list[i].AP = 0;
+            }
+            std::cout << std::endl << i << " Enemy HP: " << gamer.HP << " AP: " << gamer.AP << std::endl << std::endl;
+        }
+    }
+    return;
+}
+
 void print_battle_field(player& gamer, enemies_list& enemies_list_)
 {
     for(int y = 0; y < fieldsize; y++)
@@ -199,7 +226,7 @@ int main()
 
     // initialize gamer and enemy objects on the field;
     // initialize gamer (with coordinates generated)
-    player gamer = {"gamer", 100, 100, 10,
+    player gamer = {"gamer", 100, 100, 20,
                     {gamer.coordinates.x = init_coordinates_x[0],gamer.coordinates.y = init_coordinates_y[0]}};
 
     //initialize enemies (with coordinates generated and rand() parameters)
@@ -222,9 +249,23 @@ int main()
             gamer.HP++; // healing 1HP every tick;
         }
 
+        take_damage(gamer, enemies);
         move_enemy(enemies);
 
+        //GAME OVER CHECK SECTION
+        if(gamer.HP <= 0)
+        {
+            std::cout << std::endl << "YOU DIED" << std::endl;
+            break;
+        }
 
+        bool flag = FALSE;
+        for(int i = 0, dead_enemies = 0; i < enemies.list.size(); i++)
+        {
+            if(enemies.list[i].HP < 0) dead_enemies++;
+            if(dead_enemies == enemies.list.size()) flag = TRUE;
+        }
+        if(flag) break;
     }
     // GAME ENDS HERE
 

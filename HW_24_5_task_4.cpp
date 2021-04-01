@@ -234,7 +234,7 @@ int main()
 
     // initialize gamer and enemy objects on the field;
     // initialize gamer (with coordinates generated)
-    player gamer = {"gamer", 100, 500, 20,
+    player gamer = {"gamer", 100, 150, 20,
                     {gamer.coordinates.x = init_coordinates_x[0],gamer.coordinates.y = init_coordinates_y[0]}};
 
     //initialize enemies (with coordinates generated and rand() parameters)
@@ -254,7 +254,7 @@ int main()
         if(user_input == "w" || user_input == "a" || user_input == "s" || user_input == "d")
         {
             move_player(gamer, user_input);
-            gamer.HP++; // healing 1HP every tick;
+            if(gamer.AP <= 0) gamer.HP++; // healing 1HP every tick;
         }
         move_enemy(enemies);
         take_damage(gamer, enemies);

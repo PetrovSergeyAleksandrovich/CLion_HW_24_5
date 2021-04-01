@@ -7,7 +7,7 @@
 #include <Windows.h>
 
 int fieldsize =  10; //set size of battlefield here
-int enemy_quantity = 2; // set enemies on the field here
+int enemy_quantity = 5; // set enemies on the field here
 
 struct vec_2d
 {
@@ -122,7 +122,8 @@ void take_damage(player& gamer, enemies_list& enemies_list_)
 {
     for(int i = 0; i < enemies_list_.list.size(); i++)
     {
-        if(gamer.coordinates.x == enemies_list_.list[i].coordinates.x && gamer.coordinates.y == enemies_list_.list[i].coordinates.y)
+        if(gamer.coordinates.x == enemies_list_.list[i].coordinates.x && gamer.coordinates.y == enemies_list_.list[i].coordinates.y
+            && enemies_list_.list[i].HP > 0)
         {
             std::cout << "\n~HIT~";
             gamer.AP -= enemies_list_.list[i].damage;
@@ -131,7 +132,7 @@ void take_damage(player& gamer, enemies_list& enemies_list_)
                 gamer.HP += gamer.AP;
                 gamer.AP = 0;
             }
-            std::cout << std::endl << "HP: " << gamer.HP << " AP: " << gamer.AP;
+            std::cout << std::endl << "Gamer HP: " << gamer.HP << " AP: " << gamer.AP;
 
             enemies_list_.list[i].AP -= gamer.damage;
             if(enemies_list_.list[i].AP <= 0)
@@ -139,7 +140,14 @@ void take_damage(player& gamer, enemies_list& enemies_list_)
                 enemies_list_.list[i].HP += enemies_list_.list[i].AP;
                 enemies_list_.list[i].AP = 0;
             }
-            std::cout << std::endl << i << " Enemy HP: " << gamer.HP << " AP: " << gamer.AP << std::endl << std::endl;
+            if(enemies_list_.list[i].HP > 0)
+            {
+                std::cout << std::endl << i << " Enemy HP: " << enemies_list_.list[i].HP << " AP: " << enemies_list_.list[i].AP << std::endl << std::endl;
+            }
+            else
+            {
+                std::cout << std::endl;
+            }
         }
     }
     return;
@@ -226,7 +234,7 @@ int main()
 
     // initialize gamer and enemy objects on the field;
     // initialize gamer (with coordinates generated)
-    player gamer = {"gamer", 100, 100, 20,
+    player gamer = {"gamer", 100, 500, 20,
                     {gamer.coordinates.x = init_coordinates_x[0],gamer.coordinates.y = init_coordinates_y[0]}};
 
     //initialize enemies (with coordinates generated and rand() parameters)
@@ -248,9 +256,9 @@ int main()
             move_player(gamer, user_input);
             gamer.HP++; // healing 1HP every tick;
         }
+        move_enemy(enemies);
 
         take_damage(gamer, enemies);
-        move_enemy(enemies);
 
         //GAME OVER CHECK SECTION
         if(gamer.HP <= 0)
@@ -265,7 +273,11 @@ int main()
             if(enemies.list[i].HP < 0) dead_enemies++;
             if(dead_enemies == enemies.list.size()) flag = TRUE;
         }
-        if(flag) break;
+        if(flag)
+        {
+            std::cout << std::endl << "YOU WIN" << std::endl;
+            break;
+        }
     }
     // GAME ENDS HERE
 

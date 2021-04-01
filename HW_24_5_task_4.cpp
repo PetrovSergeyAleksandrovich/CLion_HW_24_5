@@ -85,33 +85,34 @@ void move_player(player& player, std::string& user_input)
 
 void move_enemy(enemies_list& enemies_list_)
 {
+    int x_or_y = rand() % 2;
+
     for(int i = 0; i < enemies_list_.list.size(); i++)
     {
-        int x_or_y = rand() % 2;
         int tmp_direction = rand() % 2;
         if(tmp_direction == 0) tmp_direction = -1;
         else tmp_direction = 1;
 
         if(x_or_y)
         {
-            if(tmp_direction == 1 && enemies_list_.list[i].coordinates.x >= 0 && enemies_list_.list[i].coordinates.x < fieldsize - 2 )
+            if(tmp_direction == 1 && (enemies_list_.list[i].coordinates.x >= 0 && enemies_list_.list[i].coordinates.x <= fieldsize - 2) )
             {
-                enemies_list_.list[i].coordinates.x += tmp_direction;
+                enemies_list_.list[i].coordinates.x++;
             }
-            if(tmp_direction == -1 && enemies_list_.list[i].coordinates.x > 0 && enemies_list_.list[i].coordinates.x < fieldsize - 1)
+            if(tmp_direction == -1 && (enemies_list_.list[i].coordinates.x > 0 && enemies_list_.list[i].coordinates.x <= fieldsize - 1) )
             {
-                enemies_list_.list[i].coordinates.x += tmp_direction;
+                enemies_list_.list[i].coordinates.x--;
             }
         }
         if(!x_or_y)
         {
-            if(tmp_direction == 1 && enemies_list_.list[i].coordinates.y >= 0 && enemies_list_.list[i].coordinates.y < fieldsize - 2 )
+            if(tmp_direction == 1 && (enemies_list_.list[i].coordinates.y >= 0 && enemies_list_.list[i].coordinates.y <= fieldsize - 2) )
             {
-                enemies_list_.list[i].coordinates.y += tmp_direction;
+                enemies_list_.list[i].coordinates.y++;
             }
-            if(tmp_direction == -1 && enemies_list_.list[i].coordinates.y > 0 && enemies_list_.list[i].coordinates.y < fieldsize - 1)
+            if(tmp_direction == -1 && (enemies_list_.list[i].coordinates.y > 0 && enemies_list_.list[i].coordinates.y <= fieldsize - 1) )
             {
-                enemies_list_.list[i].coordinates.y += tmp_direction;
+                enemies_list_.list[i].coordinates.y--;
             }
         }
     }
@@ -234,7 +235,7 @@ int main()
 
     // initialize gamer and enemy objects on the field;
     // initialize gamer (with coordinates generated)
-    player gamer = {"gamer", 100, 150, 20,
+    player gamer = {"gamer", 100, 150, 25,
                     {gamer.coordinates.x = init_coordinates_x[0],gamer.coordinates.y = init_coordinates_y[0]}};
 
     //initialize enemies (with coordinates generated and rand() parameters)
@@ -250,30 +251,32 @@ int main()
         print_battle_field(gamer, enemies);
         std::cout << ":" << std::endl;
         std::cin >> user_input;
-
         if(user_input == "w" || user_input == "a" || user_input == "s" || user_input == "d")
         {
             move_player(gamer, user_input);
-            if(gamer.AP <= 0) gamer.HP++; // healing 1HP every tick;
+            if(gamer.AP <= 0) gamer.HP += rand() % 2; // healing 1HP, but not with every movement
         }
         move_enemy(enemies);
         take_damage(gamer, enemies);
+        std::cout << std::endl << "HP: " << gamer.HP << " AP: " << gamer.AP << std::endl;
 
         //GAME OVER CHECK SECTION
         if(gamer.HP <= 0)
         {
             std::cout << std::endl << "YOU DIED" << std::endl;
+            print_battle_field(gamer, enemies);
             break;
         }
         bool flag = FALSE;
         for(int i = 0, dead_enemies = 0; i < enemies.list.size(); i++)
         {
-            if(enemies.list[i].HP < 0) dead_enemies++;
+            if(enemies.list[i].HP <= 0) dead_enemies++;
             if(dead_enemies == enemies.list.size()) flag = TRUE;
         }
         if(flag)
         {
             std::cout << std::endl << "YOU WIN" << std::endl;
+            print_battle_field(gamer, enemies);
             break;
         }
     }

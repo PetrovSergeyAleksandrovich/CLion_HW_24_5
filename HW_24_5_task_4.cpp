@@ -257,7 +257,6 @@ int main()
             gamer.HP++; // healing 1HP every tick;
         }
         move_enemy(enemies);
-
         take_damage(gamer, enemies);
 
         //GAME OVER CHECK SECTION
@@ -266,7 +265,6 @@ int main()
             std::cout << std::endl << "YOU DIED" << std::endl;
             break;
         }
-
         bool flag = FALSE;
         for(int i = 0, dead_enemies = 0; i < enemies.list.size(); i++)
         {

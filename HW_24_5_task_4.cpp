@@ -6,8 +6,8 @@
 #include <ctime>
 #include <Windows.h>
 
-int fieldsize =  10; //set size of battlefield here
-int enemy_quantity = 5; // set enemies on the field here
+int fieldsize =  rand() % 10 + 10; //set size of battlefield here
+int enemy_quantity = rand() % 9 + 1; // set enemies on the field here
 
 struct vec_2d
 {

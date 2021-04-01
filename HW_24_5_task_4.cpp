@@ -7,7 +7,7 @@
 #include <Windows.h>
 
 int fieldsize =  10; //set size of battlefield here
-int enemy_quantity = 5; // set enemies on the field here
+int enemy_quantity = 2; // set enemies on the field here
 
 struct vec_2d
 {
@@ -83,23 +83,58 @@ void move_player(player& player, std::string& user_input)
     }
 }
 
+void move_enemy(enemies_list& enemies_list_)
+{
+    for(int i = 0; i < enemies_list_.list.size(); i++)
+    {
+        int x_or_y = rand() % 2;
+        int tmp_direction = rand() % 2;
+        if(tmp_direction == 0) tmp_direction = -1;
+        else tmp_direction = 1;
+
+        if(x_or_y)
+        {
+            if(tmp_direction == 1 && enemies_list_.list[i].coordinates.x >= 0 && enemies_list_.list[i].coordinates.x < fieldsize - 2 )
+            {
+                enemies_list_.list[i].coordinates.x += tmp_direction;
+            }
+            if(tmp_direction == -1 && enemies_list_.list[i].coordinates.x > 0 && enemies_list_.list[i].coordinates.x < fieldsize - 1)
+            {
+                enemies_list_.list[i].coordinates.x += tmp_direction;
+            }
+        }
+        if(!x_or_y)
+        {
+            if(tmp_direction == 1 && enemies_list_.list[i].coordinates.y >= 0 && enemies_list_.list[i].coordinates.y < fieldsize - 2 )
+            {
+                enemies_list_.list[i].coordinates.y += tmp_direction;
+            }
+            if(tmp_direction == -1 && enemies_list_.list[i].coordinates.y > 0 && enemies_list_.list[i].coordinates.y < fieldsize - 1)
+            {
+                enemies_list_.list[i].coordinates.y += tmp_direction;
+            }
+        }
+    }
+    return;
+}
+
 void print_battle_field(player& gamer, enemies_list& enemies_list_)
 {
     for(int y = 0; y < fieldsize; y++)
     {
         for(int x = 0; x < fieldsize; x++)
         {
-            
+
             for (int k = 0; k < enemies_list_.list.size(); k++)
             {
                 if (x == gamer.coordinates.x && y == gamer.coordinates.y && gamer.HP > 0)
                 {
-                    std::cout << "P" << " ";
+                    std::cout << "P" << "  ";
                     x++;
                 }
                 if (x == enemies_list_.list[k].coordinates.x && y == enemies_list_.list[k].coordinates.y && enemies_list_.list[k].HP > 0)
                 {
-                    std::cout << "E" << " ";
+                    std::cout << "E" << "  ";
                     x++;
                     break;
                 }
@@ -107,11 +142,11 @@ void print_battle_field(player& gamer, enemies_list& enemies_list_)
 
             if (x < fieldsize && (x == gamer.coordinates.x && y == gamer.coordinates.y && gamer.HP > 0))
             {
-                std::cout << "P" << " ";
+                std::cout << "P" << "  ";
             }
             else if(x < fieldsize)
             {
-                std::cout << "." << " ";
+                std::cout << "." << "  ";
             }
 
         }
@@ -184,9 +219,11 @@ int main()
         if(user_input == "w" || user_input == "a" || user_input == "s" || user_input == "d")
         {
             move_player(gamer, user_input);
+            gamer.HP++; // healing 1HP every tick;
         }
 
-        gamer.HP++; // healing 1HP every tick;
+        move_enemy(enemies);
+
 
     }
     // GAME ENDS HERE

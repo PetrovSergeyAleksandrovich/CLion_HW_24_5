@@ -197,8 +197,8 @@ void save_game(player& gamer, enemies_list& enemies)
 {
     std::cout << "\nSAVING STARTED" ;
 
-    std::ofstream file;
     int name_len = gamer.name.length();
+    std::ofstream file;
 
     file.open("C:\\Users\\Poizone\\CLion_HW_24_5\\save.bin", std::ios::binary);
     file.write((char*)&name_len, sizeof(name_len));
@@ -223,10 +223,11 @@ void save_game(player& gamer, enemies_list& enemies)
 
 void load_game(player& gamer, enemies_list& enemies)
 {
-    std::cout << "\nSAVING STARTED\n" ;
+    std::cout << "\nLOADING STARTED\n" ;
 
     int name_len;
     std::ifstream file;
+
     file.open("C:\\Users\\Poizone\\CLion_HW_24_5\\save.bin", std::ios::binary);
     file.read((char*)&name_len, sizeof(name_len));
     gamer.name.resize(name_len);
@@ -246,7 +247,7 @@ void load_game(player& gamer, enemies_list& enemies)
         file.read((char*)&enemies.list[i].coordinates.y, sizeof(int));
     }
     file.close();
-    std::cout << std::endl << "LOADIN COMPLITED" << std::endl;
+    std::cout << "LOADING COMPLITED" << std::endl;
 }
 
 int main()
@@ -300,8 +301,9 @@ int main()
     }
 
     // GAME STARTS HERE
-    std::cout << "To control type: w/a/s/d\nTo save type: save\nTo load last save type: load\n\n";
+    std::cout << "\nINSTRUCTIONS:\nTo control type: w/a/s/d\nTo save type: save\nTo load last save type: load\nWhen Gamer AP is 0, then HP increasing randomly on 1HP every move when no interaction with Enemies\n\n";
     std::cout << std::endl << "GAME STARTED" << std::endl;
+
     while(TRUE)
     {
         print_battle_field(gamer, enemies);

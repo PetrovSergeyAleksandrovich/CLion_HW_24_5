@@ -193,14 +193,14 @@ void print_battle_field(player& gamer, enemies_list& enemies_list_)
     std::cout << std::endl;
 }
 
-void save_game(player& gamer, enemies_list& enemies)
+void save_game(player& gamer, enemies_list& enemies, std::string path)
 {
     std::cout << "\nSAVING STARTED" ;
 
     int name_len = gamer.name.length();
     std::ofstream file;
 
-    file.open("C:\\Users\\Poizone\\CLion_HW_24_5\\save.bin", std::ios::binary);
+    file.open(path, std::ios::binary);
     file.write((char*)&name_len, sizeof(name_len));
     file.write(gamer.name.c_str(), gamer.name.length());
     file.write((char*)&gamer.HP, sizeof(int));
@@ -221,14 +221,14 @@ void save_game(player& gamer, enemies_list& enemies)
     std::cout << std::endl << "GAME SAVED" << std::endl;
 }
 
-void load_game(player& gamer, enemies_list& enemies)
+void load_game(player& gamer, enemies_list& enemies, std::string path)
 {
     std::cout << "\nLOADING STARTED\n" ;
 
     int name_len;
     std::ifstream file;
 
-    file.open("C:\\Users\\Poizone\\CLion_HW_24_5\\save.bin", std::ios::binary);
+    file.open(path, std::ios::binary);
     file.read((char*)&name_len, sizeof(name_len));
     gamer.name.resize(name_len);
     file.read((char*)gamer.name.c_str(), name_len);
@@ -254,6 +254,7 @@ int main()
 {
     // init variables
     std::string user_input;
+    std::string path = "D:\\save.bin"; // path to save file
     std::vector<int> init_coordinates_x;
     std::vector<int> init_coordinates_y;
     int pawn_quantity = enemy_quantity + 1;
@@ -301,7 +302,7 @@ int main()
     }
 
     // GAME STARTS HERE
-    std::cout << "\nINSTRUCTIONS:\nTo control type: w/a/s/d\nTo save type: save\nTo load last save type: load\nWhen Gamer AP is 0, then HP increasing randomly on 1HP every move when no interaction with Enemies\n\n";
+    std::cout << "\nINSTRUCTIONS:\nTo control type: w/a/s/d\nTo save to directory (D:save.bin) type: save\nTo load last save type: load\nWhen Gamer AP is 0, then HP increasing randomly on 1HP every move when no interaction with Enemies\n\n";
     std::cout << std::endl << "GAME STARTED" << std::endl;
 
     while(TRUE)
@@ -318,13 +319,13 @@ int main()
         }
         else if(user_input == "save")
         {
-            save_game(gamer, enemies);
+            save_game(gamer, enemies, path);
             std::cout << "press w/a/s/d to continue\n\n" << std::endl;
             continue;
         }
         else if(user_input == "load")
         {
-            load_game(gamer, enemies);
+            load_game(gamer, enemies, path);
             std::cout << "press w/a/s/d to continue\n\n" << std::endl;
             continue;
         }

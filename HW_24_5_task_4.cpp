@@ -195,20 +195,64 @@ void print_battle_field(player& gamer, enemies_list& enemies_list_)
 
 void save_game(player& gamer, enemies_list& enemies)
 {
+    std::cout << "\nSAVING STARTED" ;
+
     std::ofstream file;
+    int name_len = gamer.name.length();
+
+    file.open("C:\\Users\\Poizone\\CLion_HW_24_5\\save.bin", std::ios::binary);
+    file.write((char*)&name_len, sizeof(name_len));
+    file.write(gamer.name.c_str(), gamer.name.length());
+    file.write((char*)&gamer.HP, sizeof(int));
+    file.write((char*)&gamer.AP, sizeof(int));
+    file.write((char*)&gamer.damage, sizeof(int));
+    file.write((char*)&gamer.coordinates.x, sizeof(int));
+    file.write((char*)&gamer.coordinates.y, sizeof(int));
+    for(int i = 0; i < enemies.list.size(); i++)
+    {
+        file.write((char*)&enemies.list[i].name, sizeof(int));
+        file.write((char*)&enemies.list[i].HP, sizeof(int));
+        file.write((char*)&enemies.list[i].AP, sizeof(int));
+        file.write((char*)&enemies.list[i].damage, sizeof(int));
+        file.write((char*)&enemies.list[i].coordinates.x, sizeof(int));
+        file.write((char*)&enemies.list[i].coordinates.y, sizeof(int));
+    }
+    file.close();
+    std::cout << std::endl << "GAME SAVED" << std::endl;
 }
 
 void load_game(player& gamer, enemies_list& enemies)
 {
+    std::cout << "\nSAVING STARTED\n" ;
+
+    int name_len;
     std::ifstream file;
+    file.open("C:\\Users\\Poizone\\CLion_HW_24_5\\save.bin", std::ios::binary);
+    file.read((char*)&name_len, sizeof(name_len));
+    gamer.name.resize(name_len);
+    file.read((char*)gamer.name.c_str(), name_len);
+    file.read((char*)&gamer.HP, sizeof(int));
+    file.read((char*)&gamer.AP, sizeof(int));
+    file.read((char*)&gamer.damage, sizeof(int));
+    file.read((char*)&gamer.coordinates.x, sizeof(int));
+    file.read((char*)&gamer.coordinates.y, sizeof(int));
+    for(int i = 0; i < enemies.list.size(); i++)
+    {
+        file.read((char*)&enemies.list[i].name, sizeof(int));
+        file.read((char*)&enemies.list[i].HP, sizeof(int));
+        file.read((char*)&enemies.list[i].AP, sizeof(int));
+        file.read((char*)&enemies.list[i].damage, sizeof(int));
+        file.read((char*)&enemies.list[i].coordinates.x, sizeof(int));
+        file.read((char*)&enemies.list[i].coordinates.y, sizeof(int));
+    }
+    file.close();
+    std::cout << std::endl << "LOADIN COMPLITED" << std::endl;
 }
 
 int main()
 {
     // init variables
     std::string user_input;
-    int x;
-    int y;
     std::vector<int> init_coordinates_x;
     std::vector<int> init_coordinates_y;
     int pawn_quantity = enemy_quantity + 1;
@@ -245,7 +289,7 @@ int main()
 
     // initialize gamer and enemy objects on the field;
     // initialize gamer (with coordinates generated)
-    player gamer = {"gamer", 100, 150, 25,
+    player gamer = {"_game_boy_", 100, 150, 25,
                     {gamer.coordinates.x = init_coordinates_x[0],gamer.coordinates.y = init_coordinates_y[0]}};
 
     //initialize enemies (with coordinates generated and rand() parameters)
@@ -256,6 +300,8 @@ int main()
     }
 
     // GAME STARTS HERE
+    std::cout << "To control type: w/a/s/d\nTo save type: save\nTo load last save type: load\n\n";
+    std::cout << std::endl << "GAME STARTED" << std::endl;
     while(TRUE)
     {
         print_battle_field(gamer, enemies);
@@ -271,11 +317,13 @@ int main()
         else if(user_input == "save")
         {
             save_game(gamer, enemies);
+            std::cout << "press w/a/s/d to continue\n\n" << std::endl;
             continue;
         }
         else if(user_input == "load")
         {
             load_game(gamer, enemies);
+            std::cout << "press w/a/s/d to continue\n\n" << std::endl;
             continue;
         }
 

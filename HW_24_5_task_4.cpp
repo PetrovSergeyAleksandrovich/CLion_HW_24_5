@@ -128,6 +128,7 @@ void take_damage(player& gamer, enemies_list& enemies_list_)
             && enemies_list_.list[i].HP > 0)
         {
             std::cout << "\n~HIT~";
+
             gamer.AP -= enemies_list_.list[i].damage;
             if(gamer.AP <= 0)
             {
@@ -192,7 +193,15 @@ void print_battle_field(player& gamer, enemies_list& enemies_list_)
     std::cout << std::endl;
 }
 
+void save_game(player& gamer, enemies_list& enemies)
+{
+    std::ofstream file;
+}
 
+void load_game(player& gamer, enemies_list& enemies)
+{
+    std::ifstream file;
+}
 
 int main()
 {
@@ -250,8 +259,10 @@ int main()
     while(TRUE)
     {
         print_battle_field(gamer, enemies);
+
         std::cout << ":" << std::endl;
         std::cin >> user_input;
+
         if(user_input == "w" || user_input == "a" || user_input == "s" || user_input == "d")
         {
             move_player(gamer, user_input);
@@ -259,12 +270,15 @@ int main()
         }
         else if(user_input == "save")
         {
-            ;
+            save_game(gamer, enemies);
+            continue;
         }
         else if(user_input == "load")
         {
-            ;
+            load_game(gamer, enemies);
+            continue;
         }
+
         move_enemy(enemies);
         take_damage(gamer, enemies);
         std::cout << std::endl << "HP: " << gamer.HP << " AP: " << gamer.AP << std::endl;
@@ -288,6 +302,7 @@ int main()
             print_battle_field(gamer, enemies);
             break;
         }
+        // GAME OVER CHECK SECTION ENDS HERE
     }
     // GAME ENDS HERE
 
